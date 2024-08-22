@@ -1,0 +1,70 @@
+Êşº¾   4}  proj/t2  java/lang/Object HASH_FUNCTIONS I ConstantValue   
+ BANDS    SIMILARITY_THRESHOLD D?æffffff <init> ()V Code
+     LineNumberTable LocalVariableTable this 	Lproj/t2; main ([Ljava/lang/String;)V  +ratings.csv
+     loadCsvData #(Ljava/lang/String;)Ljava/util/Map; ! *movies.csv
+  # $  loadMovieTitles
+  & ' ( reverseMovieTitles  (Ljava/util/Map;)Ljava/util/Map;
+  * + ( createUserItemMatrix
+  - . ( generateLSHSignatures 0 java/util/Scanner	 2 4 3 java/lang/System 5 6 in Ljava/io/InputStream;
+ / 8  9 (Ljava/io/InputStream;)V	 2 ; < = out Ljava/io/PrintStream; ? )Enter a movie title (or 'quit' to exit): 
+ A C B java/io/PrintStream D E print (Ljava/lang/String;)V
+ / G H I nextLine ()Ljava/lang/String; K quit
+ M O N java/lang/String P Q equalsIgnoreCase (Ljava/lang/String;)Z
+ S U T proj/FuzzyMatcher V W fuzzyMatching 7(Ljava/util/Map;Ljava/lang/String;Z)Ljava/lang/Integer; Y  Movie not found in the database.
+ A [ \ E println
+ ^ ` _ java/lang/Integer a b intValue ()I
+  d e f findUsersWhoLikedMovie !(ILjava/util/Map;)Ljava/util/Set;
+  h i j  generateRecommendationsFromUsers @(Ljava/util/Set;Ljava/util/Map;Ljava/util/Map;I)Ljava/util/List; l java/lang/StringBuilder n  Movie recommendations based on '
+ k p  E
+ k r s t append -(Ljava/lang/String;)Ljava/lang/StringBuilder; v ':
+ k x y I toString { } | java/util/List ~  iterator ()Ljava/util/Iterator;  ƒ ‚ java/util/Iterator „ … next ()Ljava/lang/Object; ‡ - 
+ ^ ‰ Š ‹ valueOf (I)Ljava/lang/Integer;    java/util/Map  ‘ get &(Ljava/lang/Object;)Ljava/lang/Object;  “ ” • hasNext ()Z
+ / — ˜  close args [Ljava/lang/String; 	dfRatings Ljava/util/Map; movieTitles movieIds userItemMatrix userSignatures scanner Ljava/util/Scanner; movieTitleInput Ljava/lang/String; movieId Ljava/lang/Integer; usersWhoLikedMovie Ljava/util/Set; recommendations Ljava/util/List; recommendedMovieId LocalVariableTypeTable GLjava/util/Map<Ljava/lang/String;Ljava/util/List<Ljava/lang/Object;>;>; 6Ljava/util/Map<Ljava/lang/Integer;Ljava/lang/String;>; 6Ljava/util/Map<Ljava/lang/String;Ljava/lang/Integer;>; YLjava/util/Map<Ljava/lang/Integer;Ljava/util/Map<Ljava/lang/Integer;Ljava/lang/Float;>;>; ILjava/util/Map<Ljava/lang/Integer;Ljava/util/List<Ljava/lang/Integer;>;>; $Ljava/util/Set<Ljava/lang/Integer;>; %Ljava/util/List<Ljava/lang/Integer;>; StackMapTable š · java/util/Set 	Signature [(Ljava/lang/String;)Ljava/util/Map<Ljava/lang/String;Ljava/util/List<Ljava/lang/Object;>;>; » java/util/HashMap
+ º  ¾ userId À java/util/ArrayList
+ ¿   Ã Ä Å put 8(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object; ¥ È rating Ê com/opencsv/CSVReader Ì java/io/FileReader
+ Ë p
+ É Ï  Ğ (Ljava/io/Reader;)V
+ É Ò Ó Ô readNext ()[Ljava/lang/String;
+ ^ Ö × Ø parseInt (Ljava/lang/String;)I { Ú Û Ü add (Ljava/lang/Object;)Z
+ Ş à ß java/lang/Float á â 
+parseFloat (Ljava/lang/String;)F
+ Ş ä Š å (F)Ljava/lang/Float;
+ É —
+ è ê é java/lang/Throwable ë ì addSuppressed (Ljava/lang/Throwable;)V
+ î ğ ï java/lang/Exception ñ  printStackTrace ó java/io/IOException õ -com/opencsv/exceptions/CsvValidationException filename data reader Lcom/opencsv/CSVReader; e Ljava/lang/Exception; J(Ljava/lang/String;)Ljava/util/Map<Ljava/lang/Integer;Ljava/lang/String;>; ¢(Ljava/util/Map<Ljava/lang/String;Ljava/util/List<Ljava/lang/Object;>;>;)Ljava/util/Map<Ljava/lang/Integer;Ljava/util/Map<Ljava/lang/Integer;Ljava/lang/Float;>;>; { ÿ   (I)Ljava/lang/Object;
+ Ş 
+floatValue ()F  Å putIfAbsent {	
+ b size userIds ratings i F #Ljava/util/List<Ljava/lang/Float;>; ¤(Ljava/util/Map<Ljava/lang/Integer;Ljava/util/Map<Ljava/lang/Integer;Ljava/lang/Float;>;>;)Ljava/util/Map<Ljava/lang/Integer;Ljava/util/List<Ljava/lang/Integer;>;>; java/util/Random       *
+  (J)V  keySet ()Ljava/util/Set; ¶ }ÿÿÿ
+!  java/util/Collections"# nCopies %(ILjava/lang/Object;)Ljava/util/List;
+ ¿% & (Ljava/util/Collection;)V
+()* 
+nextDouble ()DAßÿÿÿÀ  
+.0/ java/lang/Math12 min (II)I {456 set '(ILjava/lang/Object;)Ljava/lang/Object; random Ljava/util/Random; user 	signature h movie 	hashValue n(Ljava/util/Map<Ljava/lang/Integer;Ljava/lang/String;>;)Ljava/util/Map<Ljava/lang/String;Ljava/lang/Integer;>; @A entrySetC java/util/Map$EntryBEF … getValueBHI … getKey entry Ljava/util/Map$Entry; <Ljava/util/Map$Entry<Ljava/lang/Integer;Ljava/lang/String;>; €(ILjava/util/Map<Ljava/lang/Integer;Ljava/util/Map<Ljava/lang/Integer;Ljava/lang/Float;>;>;)Ljava/util/Set<Ljava/lang/Integer;>;O java/util/HashSet
+N  RS Ü containsKey@       ¶ Ú Û(Ljava/util/Set<Ljava/lang/Integer;>;Ljava/util/Map<Ljava/lang/Integer;Ljava/util/Map<Ljava/lang/Integer;Ljava/lang/Float;>;>;Ljava/util/Map<Ljava/lang/Integer;Ljava/lang/String;>;I)Ljava/util/List<Ljava/lang/Integer;>;
+Y[Z java/lang/Double Š\ (D)Ljava/lang/Double; ^_ Å getOrDefault
+Yab* doubleValueBdef comparingByValue ()Ljava/util/Comparator;hji java/util/Comparatorkf reversed {mno sort (Ljava/util/Comparator;)V users inputMovieId movieScores score sortedScores count 6Ljava/util/Map<Ljava/lang/Integer;Ljava/lang/Double;>; NLjava/util/List<Ljava/util/Map$Entry<Ljava/lang/Integer;Ljava/lang/Double;>;>; <Ljava/util/Map$Entry<Ljava/lang/Integer;Ljava/lang/Double;>; 
+SourceFile t2.java InnerClasses Entry !                	       
+          	        /     *· ±           
+             	      ¢     ç¸ L ¸ "M,¸ %N+¸ ):¸ ,:» /Y² 1· 7:² :>¶ @¶ F:J¶ L™ § -¸ R:Ç ² :X¶ Z§ÿÎ¶ ]¸ c:		,¶ ]¸ g:
+² :» kYm· o¶ qu¶ q¶ w¶ Z
+¹ z :§ 5¹ € À ^¶ ]6² :» kY†· o,¸ ˆ¹ Œ À M¶ q¶ w¶ Z¹ ’ šÿÇ§ÿL¶ –±       b               * ! 2 " 9 $ C % F ) O * T + \ , _ 0 k 4 u 3 z 7 – 8 ± 9 Ô 8 Ş   á = æ >    z    ç ™ š    á › œ   Û  œ   Ö  œ   Ğ Ÿ œ   É   œ  * ½ ¡ ¢  9 ¥ £ ¤  O  ¥ ¦  k s § ¨ 	 z d © ª 
+ ± # «   ¬   H   á › ­   Û  ®   Ö  ¯   Ğ Ÿ °   É   ±  k s § ² 	 z d © ³ 
+ ´   s ÿ *  µ      /  ü  Mü  ^ÿ B  µ      / M ^ ¶ {    1ÿ   µ      /   
+    ¸    ¹   í     é» ºY· ¼L+½» ¿Y· Á¹ Â W+Æ» ¿Y· Á¹ Â W+Ç» ¿Y· Á¹ Â WMN» ÉY» ËY*· Í· Î:¶ ÑW§ T+½¹ Œ À {2¸ Õ¸ ˆ¹ Ù W+Æ¹ Œ À {2¸ Õ¸ ˆ¹ Ù W+Ç¹ Œ À {2¸ İ¸ ã¹ Ù W¶ ÑY:Çÿ§Æ 3¶ æ§ +MÆ ¶ æ,¿N,Ç -M§ ,-¥ ,-¶ ç,¿M,¶ í+°  M ² ¿   < Ì Ì   8 â â ò 8 â â ô     :    B  C  D ( E 8 G M H S K V L q M Œ N § K ² P ã Q ç S    >    é ö ¤    á ÷ œ  M } ø ù  V Q H š  ¯  H š  ã  ú û  ¬      á ÷ ­  ´   < 	ÿ V  M  è è É µ  ú PW èú 
+A è		ÿ   M   î 
+ $   ¸    ü   m     }» ºY· ¼LMN» ÉY» ËY*· Í· Î:¶ ÑW§ +2¸ Õ¸ ˆ2¹ Â W¶ ÑY:ÇÿãÆ 3¶ æ§ +MÆ ¶ æ,¿N,Ç -M§ ,-¥ ,-¶ ç,¿M,¶ í+°   F S    ` `    v v ò  v v ô     & 	   X  Y  Z # ] & ^ ; ] F ` w a { c    >    } ö ¤    u  œ   A ø ù  &  H š  C  H š  w  ú û  ¬      u  ®  ´   < 	ÿ &  M  è è É µ  ú W èú 
+A è		ÿ   M   î 
+ + (  ¸    ı   §  	   ¥» ºY· ¼L*½¹ Œ À {M*Æ¹ Œ À {N*Ç¹ Œ À {:6§ h,¹ ş À ^¶ ]6-¹ ş À ^¶ ]6¹ ş À Ş¶8+¸ ˆ» ºY· ¼¹ W+¸ ˆ¹ Œ À ¸ ˆ¸ ã¹ Â W„,¹ ¡ÿ“+°       2    h  i  j   k - m 3 n C o S p d r w s • m £ u    \ 	   ¥ › œ     Ÿ œ   ‘ ª    …  ª  - x ª  0 s   C R ¾   S B ¥   d 1 È  ¬   4    ¥ › ­     Ÿ °   ‘ ³    …  ³  - x  ´    ÿ 3    { { {  û d 
+ . (  ¸        
+   Ø» ºY· ¼L»Y·M*¹ ¹ :§ ¬¹ € À ^¶ ]>» ¿Y
+¸ ˆ¸·$:6§ p*¸ ˆ¹ Œ À ¹ ¹ :§ G¹ € À ^¶ ]6,¶'‡k,¶'c+s6	¹ ş À ^¶ ]	¸-¸ ˆ¹3 W¹ ’ šÿµ„
+¡ÿ+¸ ˆ¹ Â W¹ ’ šÿP+°       6    z  {  } 1 ~ E  K € v  Š ‚ « € µ  ¿ … Ì } Ö ‡    R    Ø Ÿ œ    Ğ   œ   Å78  1 ›9   E ‡: ª  H w;   v 5<   Š !=  	 ¬        Ø Ÿ °    Ğ   ±  E ‡: ³  ´   y ÿ #       ÿ '     {  ÿ  	    {    û Cÿ      {  ÿ         
+ ' (  ¸   >    Ó     E» ºY· ¼L*¹? ¹ N§ &-¹ € ÀBM+,¹D À M,¹G À ^¹ Â W-¹ ’ šÿ×+°           Œ   !  :  C          E  œ    =  œ  ! JK  ¬        E  ®    =  ¯  ! JL  ´    ÿ        " 
+ e f  ¸   M        z»NY·PM+¹ ¹ :§ Y¹ € À ^¶ ]>+¸ ˆ¹ Œ À ¸ ˆ¹Q ™ 2+¸ ˆ¹ Œ À ¸ ˆ¹ Œ À Ş¶T—› ,¸ ˆ¹V W¹ ’ šÿ£,°           –  — & ˜ ? ™ c š n — x     *    z ¥      z Ÿ œ   r § ¨  & H9   ¬       z Ÿ °   r § ²  ´    ÿ    ¶    û U 
+ i j  ¸   W   !    "» ºY· ¼:*¹ :§ ˜¹ € À ^¶ ]6+¸ ˆ¹ Œ À ¹ ¹ :§ b¹ € À ^¶ ]6Ÿ M+¸ ˆ¹ Œ À ¸ ˆ¹ Œ À Ş¶9	¸ ˆ¸ ˆ¸X¹] ÀY¶`	c¸X¹ Â W¹ ’ šÿš¹ ’ šÿd» ¿Y¹? ·$:¸c¹g ¹l » ¿Y· Á:6¹ z :	§ .	¹ € ÀB:
+¡ § "¹G À ^¹ Ù W„	¹ ’ šÿÎ°       N    ¦ 	 § # ¨ O © U ª v « Ÿ ¨ © § ³ ± Ã ² Ò ´ Û µ Ş ¶ ö · ı ¸  º » ¶ ¾    z   "p ¨    " Ÿ œ   "  œ   "q   	r œ  # †9   O P<   v )s  	 Ã _t ª  Û G © ª  Ş Du   ö JK  ¬   H   "p ²    " Ÿ °   "  ®  	rv  Ã _tw  Û G © ³  ö Jx  ´   Ë ÿ   ¶       ÿ + 	 ¶        û ^ÿ 	  ¶       ÿ @ 
+ ¶    { {    ÿ  
+ ¶    { {B   ÿ  
+ ¶    { {    ÿ 	  ¶    { {   y   z{   
+ B |	
